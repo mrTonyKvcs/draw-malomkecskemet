@@ -22,6 +22,7 @@ class GiftsExport implements FromCollection, WithMapping, WithHeadings
     {
         return [
             $gift->name,
+            $gift->winner->store,
             $gift->winner->name,
             $gift->winner->email,
             $gift->winner->receipt_number,
@@ -34,6 +35,7 @@ class GiftsExport implements FromCollection, WithMapping, WithHeadings
     {
         return [
             'Nyeremény',
+            'Üzlet neve',
             'Nyertes neve',
             'Nyertes email címe',
             'Nyertes nyugtaszáma',
@@ -41,4 +43,29 @@ class GiftsExport implements FromCollection, WithMapping, WithHeadings
             'Nyertes életkora'
         ];
     }
+
+    // /**
+    //  * @var Invoice $invoice
+    //  */
+    // public function map($gift): array
+    // {
+    //     return [
+    //         $gift->name,
+    //         $gift->wish->name,
+    //         $gift->wish->email,
+    //         $gift->wish->city,
+    //         $gift->wish->age
+    //     ];
+    // }
+
+    // public function headings(): array
+    // {
+    //     return [
+    //         'Nyeremény',
+    //         'Nyertes neve',
+    //         'Nyertes email címe',
+    //         'Nyertes városa',
+    //         'Nyertes életkora'
+    //     ];
+    // }
 }

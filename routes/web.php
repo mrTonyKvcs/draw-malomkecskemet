@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Exports\GiftsExport;
+use App\Models\Gift;
 use Maatwebsite\Excel\Facades\Excel;
 
 /*
@@ -24,9 +25,20 @@ Route::get('/sorsolas', function () {
 })->name('draw.index');
 
 Route::get('nyertesek', function () {
-    return Excel::download(new GiftsExport, 'gifts.xlsx');
-});
+    return Excel::download(new GiftsExport(), 'gifts.xlsx');
+})->name('draw.export');
+
+Route::get('nyertesek-torlese', function () {
+    $records = Gift::all();
+
+    foreach ($records as $record) {
+        $record->application_id = null;
+        $record->save();
+    }
+
+    return redirect()->route('draw.index');
+})->name('draw.delete');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('draw.index');
 })->name('dashboard');

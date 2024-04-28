@@ -1,12 +1,23 @@
 <div class="flex justify-center mt-20">
     @if (!$this->finished)
-    <button wire:click="startedDraw" type="button" class="inline-flex items-center px-6 py-3 text-2xl font-medium text-white uppercase bg-red-800 border border-transparent shadow-sm rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+    <button wire:click="startedDraw" type="button" class="inline-flex items-center px-6 py-3 text-2xl font-medium text-white uppercase bg-red-800 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+    {{-- <button wire:click="startedWishesDraw" type="button" class="inline-flex items-center px-6 py-3 text-2xl font-medium text-white uppercase bg-red-800 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> --}}
         <!-- Heroicon name: solid/mail -->
         <svg class="w-5 h-5 mr-3 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
         sorsolás megkezdése
     </button>
     @else
-        <h2 class="text-2xl">Vége a sorsolásnak!</h2>
+      <div class="flex flex-col items-center gap-10">
+          <h2 class="text-2xl">Vége a sorsolásnak!</h2>
+        <div class="flex gap-4">
+          <a href="{{ route('draw.export') }}" class="inline-flex items-center px-6 py-3 text-2xl font-medium text-white uppercase bg-green-800 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Nyertesek exportálása
+          </a>
+          <a href="{{ route('draw.delete') }}" class="inline-flex items-center px-6 py-3 text-2xl font-medium text-white uppercase bg-red-800 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Újra sorsolás
+          </a>
+        </div>
+      </div>
     @endif
 </div>
 
@@ -39,6 +50,13 @@
                 </tr>
             @endforeach
 
+            {{-- @foreach($gifts as $gift)
+                <tr class="bg-white">
+                    <td class="px-6 py-4 text-center text-gray-500 text-md whitespace-nowrap">{{ $gift->wish->name}}</td>
+                    <td class="px-6 py-4 text-center text-gray-500 text-md whitespace-nowrap">{{ $gift->wish->email}}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900 text-md whitespace-nowrap">{{ $gift->name }}</td>
+                </tr>
+            @endforeach --}}
           </tbody>
         </table>
       </div>

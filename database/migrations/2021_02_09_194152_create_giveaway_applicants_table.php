@@ -16,6 +16,7 @@ class CreateGiveawayApplicantsTable extends Migration
         Schema::create('giveaway_applicants', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('giveaway_id');
+            $table->string('store');
             $table->string('receipt_number');
             $table->string('receipt_image_path');
             $table->string('name');
