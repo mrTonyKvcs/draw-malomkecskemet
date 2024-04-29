@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Exports\GiftsExport;
 use App\Models\Gift;
+use App\Models\GiveawayApplicant;
 use Maatwebsite\Excel\Facades\Excel;
 
 /*
@@ -23,6 +24,11 @@ Route::get('/', function () {
 Route::get('/sorsolas', function () {
     return view('draw.index');
 })->name('draw.index');
+
+Route::get('/jatekosok', function () {
+    $gamers = GiveawayApplicant::authenticated()->get();
+    return view('draw.gamers', ['gamers' => $gamers]);
+})->name('draw.gamers');
 
 Route::get('nyertesek', function () {
     return Excel::download(new GiftsExport(), 'gifts.xlsx');
