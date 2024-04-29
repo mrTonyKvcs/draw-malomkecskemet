@@ -21,29 +21,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/sorsolas', function () {
-    return view('draw.index');
-})->name('draw.index');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-Route::get('/jatekosok', function () {
-    $gamers = GiveawayApplicant::authenticated()->get();
-    return view('draw.gamers', ['gamers' => $gamers]);
-})->name('draw.gamers');
+    Route::get('/sorsolas', function () {
+        return view('draw.index');
+    })->name('draw.index');
 
-Route::get('nyertesek', function () {
-    return Excel::download(new GiftsExport(), 'gifts.xlsx');
-})->name('draw.export');
+    Route::get('/jatekosok', function () {
+        $gamers = GiveawayApplicant::authenticated()->get();
+        return view('draw.gamers', ['gamers' => $gamers]);
+    })->name('draw.gamers');
 
-Route::get('nyertesek-torlese', function () {
-    $records = Gift::all();
+    Route::get('nyertesek', function () {
+        return Excel::download(new GiftsExport(), 'gifts.xlsx');
+    })->name('draw.export');
 
-    foreach ($records as $record) {
-        $record->application_id = null;
-        $record->save();
-    }
+    Route::get('nyertesek-torlese', function () {
+        $records = Gift::all();
 
-    return redirect()->route('draw.index');
-})->name('draw.delete');
+        foreach ($records as $record) {
+            $record->application_id = null;
+            $record->save();
+        }
+
+        return redirect()->route('draw.index');
+    })->name('draw.delete');
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect()->route('draw.index');
