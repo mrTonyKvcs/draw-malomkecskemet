@@ -18,11 +18,17 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    return redirect()->route('draw.index');
+    return redirect()->route('basketball-game.index');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
+    Route::get('/kosarlabda-kihivas', function () {
+        return view('basketball-game.index');
+    })->name('basketball-game.index');
+});
+
+Route::middleware(['check.email', 'auth:sanctum', 'verified'])->group(function () {
     Route::get('/sorsolas', function () {
         return view('draw.index');
     })->name('draw.index');
@@ -47,6 +53,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return redirect()->route('draw.index');
     })->name('draw.delete');
 });
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect()->route('draw.index');
