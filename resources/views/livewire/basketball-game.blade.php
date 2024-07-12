@@ -142,17 +142,24 @@
                                     <div class="px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row w-full">
                                         <div class="mx-auto flex max-w-4xl justify-between gap-x-6 w-full">
                                             <div class="flex w-full gap-x-4">
-                                                <div class="min-w-0 flex-auto">
-                                                    <p class="text-sm font-semibold leading-6 text-gray-900">
+                                                <div
+                                                    class="min-w-0 flex flex-col gap-0 md:gap-7 w-full justify-between">
                                                     <div>
-                                                        <span class="absolute inset-x-0 -top-px bottom-0"></span>
-                                                        {{ $player->name }}
-                                                    </div>
-                                                    </p>
-                                                    <p class="mt-1 flex text-xs leading-5 text-gray-500">
-                                                    <div class="relative truncate hover:underline">
-                                                        {{ $player->email }}
+                                                        <p class="text-sm font-semibold leading-6 text-gray-900">
+                                                        <div>
+                                                            {{ $player->name }}
+                                                        </div>
                                                         </p>
+                                                        <p class="mt-1 flex text-xs leading-5 text-gray-500">
+                                                        <div class="break-words">
+                                                            {{ $player->email }}
+                                                            </p>
+                                                        </div>
+                                                        <p class="mt-1 flex text-xs leading-5 text-gray-500">
+                                                        <div class="relative truncate hover:underline">
+                                                            {{ $player->created_at }}
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                     <p class="sm:hidden mt-1 flex text-xs leading-5 text-gray-500">
                                                     <div class="sm:hidden relative truncate hover:underline">
@@ -163,7 +170,8 @@
                                                 </div>
                                                 <div class="flex shrink-0 items-center gap-x-4">
                                                     <div class="hidden sm:flex sm:flex-col sm:items-end">
-                                                        <p class="text-sm leading-6 text-gray-900">
+                                                        <p
+                                                            class="text-sm leading-6 text-gray-900 flex items-center gap-2">
                                                             <span
                                                                 class="font-bold text-lg">{{ $player->points }}</span>
                                                             pont
