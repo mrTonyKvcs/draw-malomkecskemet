@@ -58,7 +58,7 @@ class BasketballGame extends Component
         if ($this->filter === 'all') {
             $this->players = ModelsBasketballGame::orderBy('points', 'desc')->get();
         } else {
-            $date = Carbon::createFromFormat('Y-m-d', $this->filter);
+            $date = Carbon::createFromFormat('Y-m-d', $this->filter)->addDay();
             $this->players = ModelsBasketballGame::whereDate('created_at', $date)->orderBy('points', 'desc')->get();
         }
     }
