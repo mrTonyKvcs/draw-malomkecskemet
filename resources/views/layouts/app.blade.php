@@ -36,10 +36,12 @@
                         <div class="flex flex-col md:flex-row gap-10 justify-between w-full">
                             <div class="flex gap-7">
                                 @if (!in_array(auth()->user()->email, config('malomkecskemet.email.not_admin')))
-                                    <a href="{{ route('draw.index') }}">Sorsolás</a>
-                                    <a href="{{ route('draw.gamers') }}">Játékosok</a>
+                                    {{-- <a href="{{ route('draw.index') }}">Sorsolás</a> --}}
+                                    {{-- <a href="{{ route('draw.gamers') }}">Játékosok</a> --}}
+                                    <a href="{{ route('draw.GiftPackage.index') }}">Sorsolás</a>
+                                    <a href="{{ route('draw.GiftPackage.gamers') }}">Játékosok</a>
                                 @endif
-                                <a href="{{ route('basketball-game.index') }}">Kosárlabda kihívás</a>
+                                {{-- <a href="{{ route('basketball-game.index') }}">Kosárlabda kihívás</a> --}}
                             </div>
 
                             <form method="POST" action="{{ route('logout') }}">

@@ -12,12 +12,17 @@ class Gift extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'application_id', 'name'
+        'application_id', 'name', 'secondary_application_id'
     ];
 
     public function winner()
     {
         return $this->hasOne(GiveawayApplicant::class, 'id', 'application_id');
+    }
+
+    public function secondaryWinner()
+    {
+        return $this->hasOne(GiveawayApplicant::class, 'id', 'secondary_application_id');
     }
 
     public function wish()

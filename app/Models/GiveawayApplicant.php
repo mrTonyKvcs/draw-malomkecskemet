@@ -10,7 +10,7 @@ class GiveawayApplicant extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'giveaway_id', 'store', 'receipt_number', 'name', 'email', 'age', 'city', 'accept_giveaway_rules', 'accept_gdpr', 'sign_up_for_newsletter', 'receipt_image_path'
+        'giveaway_id', 'store', 'giveaway_name', 'receipt_number', 'name', 'email', 'age', 'city', 'accept_giveaway_rules', 'accept_gdpr', 'sign_up_for_newsletter', 'receipt_image_path'
     ];
 
     public function giveaway()
