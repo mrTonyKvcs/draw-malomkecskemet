@@ -40,7 +40,7 @@ class GiftPackageDraw extends Component
     {
         foreach ($this->gifts as $gift) {
             $winner = GiveawayApplicant::authenticated()
-                ->where('giveaway_name', trim(preg_replace('/\s+/', ' ', $gift->name)))
+                // ->where('giveaway_name', trim(preg_replace('/\s+/', ' ', $gift->name)))
                 ->whereNotIn('email', $this->winnerEmails)
                 ->inRandomOrder()
                 ->first();
@@ -49,13 +49,13 @@ class GiftPackageDraw extends Component
             $gift->update(['application_id' => $winner?->id]);
 
             $count = GiveawayApplicant::authenticated()
-                ->where('giveaway_name', trim(preg_replace('/\s+/', ' ', $gift->name)))
+                // ->where('giveaway_name', trim(preg_replace('/\s+/', ' ', $gift->name)))
                 ->whereNotIn('email', $this->winnerEmails)
                 ->count();
 
             if ($count > 0) {
                 $secondaryWinner = GiveawayApplicant::authenticated()
-                    ->where('giveaway_name', trim(preg_replace('/\s+/', ' ', $gift->name)))
+                    // ->where('giveaway_name', trim(preg_replace('/\s+/', ' ', $gift->name)))
                     ->whereNotIn('email', $this->winnerEmails)
                     ->whereNotIn('email', $this->secondaryWinnerEmails)
                     // ->inRandomOrder()

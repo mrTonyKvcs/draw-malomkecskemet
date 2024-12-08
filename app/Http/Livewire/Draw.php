@@ -14,6 +14,7 @@ class Draw extends Component
     public $applicants;
     public $winnerIds = array();
     public $winnerEmails = array();
+    public $secondaryWinnerEmails = array();
     public $finished = false;
 
     public function mount()
@@ -40,27 +41,43 @@ class Draw extends Component
 
     public function startedDraw()
     {
-        foreach($this->gifts as $gift) {
-            $winner = GiveawayApplicant::authenticated()->whereNotIn('email', $this->winnerEmails)->inRandomOrder()->first();
+        foreach ($this->gifts as $gift) {
+            $winner = GiveawayApplicant::authenticated()
+                ->whereNotIn('email', $this->winnerEmails)
+                ->inRandomOrder()
+                ->first();
 
-            array_push($this->winnerEmails, $winner->email);
-            // array_push($this->winnerIds, $winner->id);
-            // $gift->update(['application_id' => null]);
-            $gift->update(['application_id' => $winner->id]);
+            array_push($this->winnerEmails, $winner?->email);
+            $gift->update(['application_id' => $winner?->id]);
+
+            $count = GiveawayApplicant::authenticated()
+                ->whereNotIn('email', $this->winnerEmails)
+                ->count();
+
+            if ($count > 0) {
+                $secondaryWinner = GiveawayApplicant::authenticated()
+                    ->whereNotIn('email', $this->winnerEmails)
+                    ->whereNotIn('email', $this->secondaryWinnerEmails)
+                    // ->inRandomOrder()
+                    ->first();
+
+                array_push($this->secondaryWinnerEmails, $secondaryWinner?->email);
+                $gift->update(['secondary_application_id' => $secondaryWinner?->id]);
+            }
         }
 
         $this->gifts = null;
         $this->gifts = Gift::all();
         $this->finished = true;
 
-        return redirect()->route('draw.index');
+        return redirect()->route('draw.GiftPackage.index');
     }
 
     public function startedWishesDraw()
     {
         $randomWishes = Wish::where('is_validated', true)->inRandomOrder()->take(50)->get();
 
-        foreach($randomWishes as $wish) {
+        foreach ($randomWishes as $wish) {
             Gift::create([
                 'application_id' => $wish->id,
                 'name' => $wish->content

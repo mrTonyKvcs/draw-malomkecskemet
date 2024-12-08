@@ -19,7 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    return redirect()->route('basketball-game.index');
+    return redirect()->route('draw.index');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -49,6 +49,7 @@ Route::middleware(['check.email', 'auth:sanctum', 'verified'])->group(function (
 
         foreach ($records as $record) {
             $record->application_id = null;
+            $record->secondary_application_id = null;
             $record->save();
         }
 
@@ -57,6 +58,7 @@ Route::middleware(['check.email', 'auth:sanctum', 'verified'])->group(function (
 
     // Gift Packages Draw
     Route::get('/ajandekcsomag/sorsolas', function () {
+        return redirect()->route('draw.index');
         return view('draw.GiftPackage.index');
     })->name('draw.GiftPackage.index');
 
